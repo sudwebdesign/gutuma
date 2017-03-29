@@ -51,16 +51,11 @@ include(PLX_CORE.'lib/class.plx.admin.php');
 $plxMotor = plxMotor::getInstance();
 
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
-$lang = $plxMotor->aConf['default_lang'];
-$_SESSION['lang'] = $lang;
-$glang = $plxMotor->aConf['default_lang'];
-$_SESSION['glang'] = $glang;
-# Chargement des fichiers de langue 
+$lang = $glang = $plxMotor->aConf['default_lang'];
+$_SESSION['lang'] = $_SESSION['glang'] = $lang;
+# Chargement des fichiers de langue
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
-
-loadLang(PLX_CORE.'lang/'.$glang.'/core.php');
-loadLang(PLX_CORE.'lang/'.$glang.'/admin.php');
 
 $plxMotor->prechauffage();
 $plxMotor->demarrage();
@@ -71,6 +66,6 @@ $plxShow = plxShow::getInstance();
 if(isset($_SESSION['user']) AND !empty($_SESSION['user'])) {
 	$_profil = $plxMotor->aUsers[$_SESSION['user']];
 } else {# rediriger a l'authentification si non conncté a Pluxml
-	header('Location:../../../core/admin/auth.php?p=/caf/core/admin/plugin.php?p=gutuma');
+	header('Location:../../../core/admin/auth.php?p=plugin.php?p=gutuma');
 	exit();
 }
